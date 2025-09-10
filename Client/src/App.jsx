@@ -14,35 +14,48 @@ import AddJobPage from './pages/AddJobPage';
 import EditJobPage from './pages/EditJobPage';
 
 const App = () => {
+  const API_BASE = '/api/jobs'; // Backend base URL
+
   // Add new Job
   const addJob = async (newJob) => {
-    const res = await fetch('/api/jobs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newJob),
-    });
-    return;
+    try {
+      const res = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newJob),
+      });
+      if (!res.ok) throw new Error('Failed to add job');
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // Delete a Job
   const deleteJob = async (id) => {
-    const res = await fetch(`/api/jobs/${id}`, {
-      method: 'DELETE',
-    });
-    return;
+    try {
+      const res = await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete job');
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   };
+
   // Update a Job
   const updateJob = async (job) => {
-    const res = await fetch(`/api/jobs/${job.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(job),
-    });
-    return;
+    try {
+      const res = await fetch(`${API_BASE}/${job.id}`, {
+        method: 'PATCH', // PATCH to match backend
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(job),
+      });
+      if (!res.ok) throw new Error('Failed to update job');
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const router = createBrowserRouter(
@@ -65,6 +78,7 @@ const App = () => {
       </Route>
     )
   );
+
   return <RouterProvider router={router} />;
 };
 
