@@ -3,7 +3,6 @@ const Job = require('../models/jobModel');
 // Get all jobs
 exports.getAllJobs = async (req, res) => {
   try {
-    console.log('Success');
     const jobs = await Job.find();
     res.status(200).json({
       status: 'success',

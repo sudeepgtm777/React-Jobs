@@ -21,7 +21,7 @@ const EditJobPage = ({ updateJobSubmit }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
     const updatedJob = {
@@ -38,11 +38,15 @@ const EditJobPage = ({ updateJobSubmit }) => {
         contactPhone,
       },
     };
-    updateJobSubmit(updatedJob);
 
-    toast.success('Job Updated successfully!!!');
-
-    return navigate(`/jobs/${id}`);
+    try {
+      await updateJobSubmit(updatedJob); // wait for backend update
+      toast.success('Job Updated successfully!!!');
+      navigate(`/jobs/${id}`);
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to update job');
+    }
   };
 
   return (
@@ -233,7 +237,7 @@ const EditJobPage = ({ updateJobSubmit }) => {
                 className='bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
                 type='submit'
               >
-                Add Job
+                Update Job
               </button>
             </div>
           </form>
