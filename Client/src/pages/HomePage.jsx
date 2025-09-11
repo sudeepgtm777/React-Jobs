@@ -7,10 +7,7 @@ import ViweAllJobs from '../components/ViewAllJobs';
 const Homepage = () => {
   return (
     <>
-      <Hero
-        title='React Jobs'
-        subtitle='The place for developers to find job'
-      />
+      <Hero title='Jobs' subtitle='The place for developers to find job' />
       <HomeCards />
       <JobsListing isHome={true} />
       <ViweAllJobs />
