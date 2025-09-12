@@ -12,6 +12,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import JobPage, { jobLoader } from './pages/JobPage';
 import AddJobPage from './pages/AddJobPage';
 import EditJobPage from './pages/EditJobPage';
+import SignUp from './pages/SignupPage';
+import Login from './pages/LoginPage';
 
 const App = () => {
   const API_BASE = '/api/jobs'; // Backend base URL
@@ -75,6 +77,8 @@ const App = () => {
           loader={jobLoader}
         />
         <Route path='*' element={<NotFoundPage />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/sign-in' element={<Login />} />
       </Route>
     )
   );
