@@ -9,11 +9,16 @@ const errorController = require('./controllers/errorController');
 
 const app = express();
 
+const FRONTEND_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://your-frontend.vercel.app'
+    : 'http://localhost:5173';
+
 // Middleware
 app.use(
   cors({
-    origin: 'http://localhost:5173', // frontend URL
-    credentials: true, // ✅ allow cookies
+    origin: FRONTEND_URL,
+    credentials: true,
   })
 );
 app.use(express.json());
