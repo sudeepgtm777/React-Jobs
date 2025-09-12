@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173, // Vite default frontend port (avoid conflict with backend)
     proxy: {
       '/api': {
-        target: 'http://localhost:3000', // Backend port
+        target: `${import.meta.env.VITE_REACT_APP_BACKEND_URL}`, // Backend port
         changeOrigin: true,
         // No rewrite needed since backend routes start with /api
       },
