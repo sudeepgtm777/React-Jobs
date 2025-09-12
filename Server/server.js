@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+// For vercel
+const serverless = require('serverless-http');
 
 dotenv.config({ path: './config.env' });
 
@@ -23,7 +25,10 @@ mongoose
   });
 
 // Start server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`🚀 Server running on port ${port}...`);
-});
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//   console.log(`🚀 Server running on port ${port}...`);
+// });
+
+// For vercel
+module.exports = serverless(app);
