@@ -11,7 +11,7 @@ const app = express();
 
 const FRONTEND_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://react-jobs-git-main-sudeep-gautams-projects.vercel.app/'
+    ? process.env.VITE_FRONTEND_URL
     : 'http://localhost:5173';
 
 // Middleware
