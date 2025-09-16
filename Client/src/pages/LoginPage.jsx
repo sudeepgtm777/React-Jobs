@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+const BACKEND_URL =
+  import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:3000';
+// const BACKEND_URL = 'http://localhost:3000';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,7 +14,7 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const res = await fetch('/api/v1/users/login', {
+      const res = await fetch(`${BACKEND_URL}/api/v1/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // send cookies

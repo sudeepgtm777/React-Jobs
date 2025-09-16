@@ -8,12 +8,26 @@ const userRouter = require('./routes/userRoute');
 const errorController = require('./controllers/errorController');
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://react-jobs-client-git-main-sudeep-gautams-projects.vercel.app',
+  'https://react-jobs-client.vercel.app',
+];
 
 // Middleware
 app.use(
   cors({
-    origin: 'http://localhost:5173', // frontend URL
-    credentials: true, // ✅ allow cookies
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow Postman or curl
+      // remove trailing slash from origin before checking
+      const originWithoutSlash = origin.replace(/\/$/, '');
+      if (allowedOrigins.includes(originWithoutSlash)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
   })
 );
 app.use(express.json());
